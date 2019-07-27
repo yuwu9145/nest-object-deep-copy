@@ -1,0 +1,16 @@
+{
+  "name": "hard-copy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hard-copy.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Yuchao Wu",
+  "license": "ISC"
+}
