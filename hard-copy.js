@@ -1,5 +1,6 @@
 function hardCopy(obj) {
- return {...obj};
+  console.log(Object.getOwnPropertyDescriptors(obj.personalInfo)); 
+  return {...obj};
 }
 
 module.exports = hardCopy;
