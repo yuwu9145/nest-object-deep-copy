@@ -10,7 +10,8 @@ describe('Plain Object', () => {
       d: 'test',
       e: 123,
       f: null,
-      g: function() { console.log('I am a function') } 
+      g: function() { return 'I am a function from original obj'; },
+      h: [1, 2, 3] 
     };
 
     const copiedObj = hardCopy(originalObj);
@@ -21,7 +22,8 @@ describe('Plain Object', () => {
     copiedObj.d = 'test changed';
     copiedObj.e = 1234;
     copiedObj.f = 'not null';
-    copiedObj.g = function() { console.log('I am a modified function') };
+    copiedObj.g = function() { return 'I am a function from copied obj'; };
+    copiedObj.h = [1, 2, 3, 4];
 
     expect(copiedObj).toEqual({
       a: 1,
@@ -30,8 +32,11 @@ describe('Plain Object', () => {
       d: 'test changed',
       e: 1234,
       f: 'not null',
-      g: expect.any(Function)
+      g: expect.any(Function),
+      h: [1, 2, 3, 4]
     });
+
+    expect(copiedObj.g()).toBe('I am a function from copied obj');
 
     expect(originalObj).toEqual({
       a: undefined,
@@ -40,8 +45,11 @@ describe('Plain Object', () => {
       d: 'test',
       e: 123,
       f: null, 
-      g: expect.any(Function)
+      g: expect.any(Function),
+      h: [1, 2, 3]
     });
+    
+    expect(originalObj.g()).toBe('I am a function from original obj');
 
   });
 });
@@ -54,13 +62,16 @@ describe('Nested Object', () => {
       email: 'jack@dev.com',
       personalInfo: {
         name: 'Jack',
+        isEmployed: false,
+        nationality: undefined,
         address: {
           line1: 'westwish st',
           line2: 'washmasher',
           city: 'wallas',
           state: 'WX'
         }
-      }
+      },
+      work: function() { return 'I am working' }
     };
 
     const copiedUser = hardCopy(user);
@@ -70,6 +81,7 @@ describe('Nested Object', () => {
 
     expect(user.personalInfo.name).toBe('Jack');
     expect(user.personalInfo.address.line1).toBe('westwish st');
+    expect(copiedUser.work).toEqual(expect.any(Function));
   
   });
 });
