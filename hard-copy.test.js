@@ -1,7 +1,7 @@
 const hardCopy = require('./hard-copy');
 
 describe('Plain Object', () => {
-  it('should create a copied object which is a hard copied version', () => {
+  xit('should create a copied object which is a hard copied version', () => {
 
     const originalObj = {
       a: undefined,
