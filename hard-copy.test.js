@@ -71,6 +71,9 @@ describe('Nested Object', () => {
           state: 'WX'
         }
       },
+      family: {
+        
+      },
       work: function() { return 'I am working' }
     };
 

@@ -34,29 +34,23 @@ function getDeep(path, obj) {
   }, obj || self)
 }
 
-let keyChain = [];
-const copiedObj = Object.assign({});
+let copiedObj = Object.assign({});
+
+const keyChain = [];
+let subKeyChain = [];
 
 function iterateKeys(obj) {
     
   Object.keys(obj).forEach(key => {
-    const currentKeyChainValue = keyChain.length ? getDeep(keyChain, obj) : obj[key]; 
+    const currentKeyChainValue = obj[key]; 
     
     if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
-      keyChain.push(key); 
-      console.log('----value here----', currentKeyChainValue, key, keyChain); 
+      subKeyChain.push(key); 
+      console.log('----value here----', key); 
       iterateKeys(obj[key]);
       return;
     }
-     
     
-    if(keyChain.length) {
-      console.log('--primitive values---', keyChain); 
-      setDeep(copiedObj, keyChain, getDeep(keyChain, obj));
-      // keyChain = [];
-    } else {
-      copiedObj[key] = obj[key];
-    }
     return;
     // copiedObj[key] = obj[key];
   });
@@ -64,10 +58,22 @@ function iterateKeys(obj) {
 
 
 function hardCopy(obj) {
+  Object.keys(obj).forEach(key => {
+    console.log(key); 
+    const currentKeyChainValue = obj[key]; 
+    if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
+      // This is an object 
+      // console.log('----here-------', key);
+      subKeyChain = [...[key]];
+      iterateKeys(obj[key]);
+      keyChain.push([...subKeyChain]);
+    } else {
+      // primitive
+      copiedObj[key] = obj[key]; 
+    }
+  }); 
 
-	iterateKeys(obj);
-
-	console.log('--fdfd---', copiedObj);
+	console.log('--fdfd---', keyChain);
 
 	return copiedObj;
 }
