@@ -40,19 +40,15 @@ const keyChain = [];
 let subKeyChain = [];
 
 function iterateKeys(obj) {
-    
   Object.keys(obj).forEach(key => {
     const currentKeyChainValue = obj[key]; 
     
     if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
       subKeyChain.push(key); 
-      console.log('----value here----', key); 
       iterateKeys(obj[key]);
       return;
     }
-    
     return;
-    // copiedObj[key] = obj[key];
   });
 }
 
@@ -62,20 +58,23 @@ function hardCopy(obj) {
     console.log(key); 
     const currentKeyChainValue = obj[key]; 
     if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
-      // This is an object 
-      // console.log('----here-------', key);
       subKeyChain = [...[key]];
       iterateKeys(obj[key]);
       keyChain.push([...subKeyChain]);
     } else {
-      // primitive
       copiedObj[key] = obj[key]; 
     }
-  }); 
+  });
 
-	console.log('--fdfd---', keyChain);
+  keyChain.forEach(keyLevelArray => {
+    copiedObj[keyLevelArray[0]] = {...obj[keyLevelArray[0]]}; 
+    keyLevelArray.forEach((currentKey, index) => {
+      const currentCutDownSubKeyChain = [...keyLevelArray].slice(0, index + 1);
+      setDeep(copiedObj, currentCutDownSubKeyChain, {...getDeep(currentCutDownSubKeyChain, obj)}); 
+    });
+  });
 
-	return copiedObj;
+  return copiedObj;
 }
 
 module.exports = hardCopy;

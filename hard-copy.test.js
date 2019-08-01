@@ -72,19 +72,25 @@ describe('Nested Object', () => {
         }
       },
       family: {
-        
+        level1: {
+          level2: {
+            level3 : 1
+          }
+        } 
       },
-      work: function() { return 'I am working' }
+      work: function() { return 'I am working in original user obj' }
     };
 
     const copiedUser = hardCopy(user);
 
     copiedUser.personalInfo.name = 'Trump';
     copiedUser.personalInfo.address.line1 = 'White House';
+    copiedUser.work = function() { return 'I am working in copied user obj'};
 
     expect(user.personalInfo.name).toBe('Jack');
     expect(user.personalInfo.address.line1).toBe('westwish st');
     expect(copiedUser.work).toEqual(expect.any(Function));
+    expect(copiedUser.work()).toBe('I am working in copied user obj');
   
   });
 });
