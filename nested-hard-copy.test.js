@@ -1,4 +1,4 @@
-const hardCopy = require('./hard-copy');
+const nestedHardCopy = require('./nested-hard-copy');
 
 describe('Plain Object', () => {
 	it('should create a copied object which is a hard copied version', () => {
@@ -15,7 +15,7 @@ describe('Plain Object', () => {
 			h: [1, 2, 3]
 		};
 
-		const copiedObj = hardCopy(originalObj);
+		const copiedObj = nestedHardCopy(originalObj);
 
 		copiedObj.a = 1;
 		copiedObj.b = false;
@@ -95,7 +95,7 @@ describe('Nested Object', () => {
 			}
 		};
 
-		const copiedUser = hardCopy(user);
+		const copiedUser = nestedHardCopy(user);
 
 		copiedUser.personalInfo.name = 'Trump';
 		copiedUser.personalInfo.address.line1 = 'White House';
@@ -164,7 +164,7 @@ describe('Array', () => {
       }
     ];
     
-    const copiedArray = hardCopy(originalArray);
+    const copiedArray = nestedHardCopy(originalArray);
 
     // Change first element values in copied Array
     copiedArray[0].personalInfo.name = 'Trump';
