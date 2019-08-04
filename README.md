@@ -1,87 +1,133 @@
 # Deep Copy Nested Objects 
 
-One Paragraph of project description goes here
+One of confusion in javascript is **hard copy vs shallow copy**. Usually developers are being told to use **spread operator**, **Object.assign** or **JSON.parse(JSON.stringify(object))** to get a real copy from your original object.
 
-## Getting Started
+In most situations, they will work as expect, but in certain circumstances, they will not work as you expect.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+This javascript module aims to avoid problems that these mothods have and always give you a real hard copy based on your original object.
 
-### Prerequisites
+## Problem with spread operator and Object.assign()
 
-What things you need to install the software and how to install them
+If your object is a plain object and has primitive only values, for example:
 
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
+```javascript
+var user = {
+  id: 1,
+  gender: 'male'
+};
 ```
 
-And repeat
+The spread operator or Object.assign() will give you a hard copy object, let us continue with obove example:
 
-```
-until finished
-```
+```javascript
+var copiedUser = {
+  ...user
+};
 
-End with an example of getting some data out of the system or using it for a little demo
+// Change a property
+copiedUser.id = 2;
 
-## Running the tests
+console.log(user.id); // 1
+console.log(copiedUser.id); // 2
 
-A javascript function which will gives a real hard copy object from your original one
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+// CopiedUser object property value change does not have impact on original user object
 ```
 
-### And coding style tests
+**However**, if your original object has a property that refers to a nested object, for example:
 
-Explain what these tests test and why
-
+```javascript
+var user = {
+  {
+    id: 101,
+    gender: 'male'
+    personalInfo: {
+      name: 'Jack',
+    }
+  }
+};
 ```
-Give an example
+
+The spread operator or Object.assign() **WILL NOT** give you a hard copy object, let us continue with obove example:
+
+```javascript
+var copiedUser = {
+  ...user
+};
+
+// Change a nested object value
+copiedUser.personalInfo.name = 'Tom';
+
+// Change a property which holds primitive value
+copiedUser.id = 2;
+
+// original user object mutation happens
+console.log(user.personalInfo.name); // 'Tom'
+console.log(copiedUser.personalInfo.name); // 'Tom'
+
+// BUT mutation does not happen to property which holds primitive value
+console.log(user.id); // 1
+console.log(copiedUser.id); // 2
 ```
 
-## Deployment
 
-Add additional notes about how to deploy this on a live system
+## Problem with JSON.parse(JSON.stringify(object))
 
-## Built With
+JSON.parse(JSON.stringify(object)) **WILL LOST** the property which equals to a function, for example:
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```javascript
+var user = {
+  id: 1,
+  name: 'jack',
+  speak: function() {
+    console.log('I am speaking from original object.');
+  }
+};
 
-## Contributing
+var copiedUser = JSON.parse(JSON.stringify(user));
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+user.speak(); // `I am speaking from original object.`
+copiedUser.speak(); //Uncaught TypeError: copiedUser.speak is not a function
+```
 
-## Versioning
+## Install
+```javascript
+$ npm install nest-object-deep-copy
+```
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+## Hot to use it
+```javascript
+const nestedHardCopy = require('./nest-object-hard-copy');
 
-## Authors
+// original object
+var user = {
+  {
+    id: 1,
+    gender: 'male'
+    personalInfo: {
+      name: 'Jack',
+    },
+    speak: function() {
+      console.log('I am speaking from original object.');
+    }
+  }
+};
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+//Get a hard copy
+var copiedUser = nestedHardCopy(user);
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+//Change some values in copied object
+copiedUser.id = 2; //primitive property change
+copiedUser.personalInfo.name = 'Daniel'; //nested object value change
 
+copiedUser.speak = function() {
+  console.log('I am speaking from copied object.')
+}; //Assign a new fuction
+
+console.log(user.id); // 1
+console.log(user.personalInfo.name); // 'Jack'
+user.speak(); // 'I am speaking from original object.'
+copiedUser.speak(); //'I am speaking from copied object.'
+```
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+This project is licensed under the ISC License 
