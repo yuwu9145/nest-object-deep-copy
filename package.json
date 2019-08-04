@@ -1,8 +1,8 @@
 {
-  "name": "hard-copy",
+  "name": "nest-object-deep-copy",
   "version": "1.0.0",
   "description": "",
-  "main": "hard-copy.js",
+  "main": "nest-object-hard-copy.js",
   "dependencies": {
   },
   "devDependencies": {

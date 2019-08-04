@@ -1,4 +1,4 @@
-const nestedHardCopy = require('./nested-hard-copy');
+const nestedHardCopy = require('./nest-object-hard-copy');
 
 describe('Plain Object', () => {
 	it('should create a copied object which is a hard copied version', () => {
@@ -87,7 +87,7 @@ describe('Nested Object', () => {
 					}
 				},
 				speak: function() {
-					return "I am Jack's father and my name is Daniel.";
+					return 'I am Jack\'s father and my name is Daniel.';
 				}
 			},
 			speak: function() {
