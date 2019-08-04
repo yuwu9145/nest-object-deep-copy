@@ -17,7 +17,7 @@ var user = {
 };
 ```
 
-The spread operator or Object.assign() will give you a hard copy object, let us continue with obove example:
+Then spread operator or Object.assign() will give you a hard copy object, let us continue with obove example:
 
 ```javascript
 var copiedUser = {
