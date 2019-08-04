@@ -1,5 +1,11 @@
 # Deep Copy Nested Objects 
 
+![Coverage badge gree][coverage-badge-green]
+
+[coverage-badge-green]: https://img.shields.io/badge/Coverage-100%25-brightgreen.svg
+[coverage-badge-yellow]: https://img.shields.io/badge/Coverage-100%25-yellow.svg
+[coverage-badge-red]: https://img.shields.io/badge/Coverage-100%25-red.svg
+
 One of confusion in javascript is **hard copy vs shallow copy**. Usually developers are being told to use **spread operator**, **Object.assign** or **JSON.parse(JSON.stringify(object))** to get a real copy from your original object.
 
 In most situations, they will work as expect, but in certain circumstances, they will not work as you expect.
