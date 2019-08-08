@@ -102,19 +102,17 @@ $ npm install nest-object-deep-copy
 
 ## Hot to use it
 ```javascript
-const nestedHardCopy = require('./nest-object-hard-copy');
+const nestedHardCopy = require('nest-object-deep-copy');
 
 // original object
 var user = {
-  {
-    id: 1,
-    gender: 'male'
-    personalInfo: {
-      name: 'Jack',
-    },
-    speak: function() {
-      console.log('I am speaking from original object.');
-    }
+  id: 1,
+  gender: 'male',
+  personalInfo: {
+    name: 'Jack',
+  },
+  speak: function() {
+    console.log('I am speaking from original object.');
   }
 };
 
