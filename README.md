@@ -43,12 +43,10 @@ console.log(copiedUser.id); // 2
 
 ```javascript
 var user = {
-  {
-    id: 101,
-    gender: 'male'
-    personalInfo: {
-      name: 'Jack',
-    }
+  id: 101,
+  gender: 'male'
+  personalInfo: {
+    name: 'Jack',
   }
 };
 ```
