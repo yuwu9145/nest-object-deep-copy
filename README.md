@@ -6,27 +6,27 @@
 [coverage-badge-yellow]: https://img.shields.io/badge/Coverage-100%25-yellow.svg
 [coverage-badge-red]: https://img.shields.io/badge/Coverage-100%25-red.svg
 
-One of confusion in javascript is **hard copy vs shallow copy**. Usually developers are being told to use **spread operator**, **Object.assign** or **JSON.parse(JSON.stringify(object))** to get a real copy from your original object.
+One confusion in javascript is **hard copy / shallow copy** objects. Usually developers are being told to use the **spread operator**, **Object.assign** or **JSON.parse(JSON.stringify(object))** to get a real copy from the original object.
 
-In most situations, they will work as expect, but in certain circumstances, they will not work as you expect.
+In most situations they will work as expected, but in certain circumstances they will not work as might you expect.
 
-This javascript module aims to avoid problems that these mothods have and always give you a real hard copy based on your original object.
+This javascript module aims to avoid problems that these methods have and always give you a real hard copy based on the original object.
 
 ## Problem with spread operator and Object.assign()
 
-If your object is a plain object and has primitive only values, for example:
+If the object is a plain object and has only primitive values:
 
 ```javascript
-var user = {
+let user = {
   id: 1,
   gender: 'male'
 };
 ```
 
-Then spread operator or Object.assign() will give you a hard copy object, let us continue with obove example:
+Then the spread operator or Object.assign() will give you a hard copied object, let us continue with the example above:
 
 ```javascript
-var copiedUser = {
+let copiedUser = {
   ...user
 };
 
@@ -36,39 +36,39 @@ copiedUser.id = 2;
 console.log(user.id); // 1
 console.log(copiedUser.id); // 2
 
-// CopiedUser object property value change does not have impact on original user object
+// CopiedUser object property value change does not have an impact on the original user object
 ```
 
-**However**, if your original object has a property that refers to a nested object, for example:
+**However**, if the original object has a property that refers to a nested object, for example:
 
 ```javascript
-var user = {
+let user = {
   id: 101,
-  gender: 'male'
+  gender: 'male',
   personalInfo: {
     name: 'Jack',
   }
 };
 ```
 
-The spread operator or Object.assign() **WILL NOT** give you a hard copy object, let us continue with obove example:
+Then the spread operator or Object.assign() **WILL NOT** give you a hard copied object, let us continue with another example:
 
 ```javascript
-var copiedUser = {
+let copiedUser = {
   ...user
 };
 
 // Change a nested object value
 copiedUser.personalInfo.name = 'Tom';
 
-// Change a property which holds primitive value
+// Change a property which holds a primitive value
 copiedUser.id = 2;
 
 // original user object mutation happens
 console.log(user.personalInfo.name); // 'Tom'
 console.log(copiedUser.personalInfo.name); // 'Tom'
 
-// BUT mutation does not happen to property which holds primitive value
+// BUT mutation does not happen to property which holds a primitive value
 console.log(user.id); // 1
 console.log(copiedUser.id); // 2
 ```
@@ -76,10 +76,10 @@ console.log(copiedUser.id); // 2
 
 ## Problem with JSON.parse(JSON.stringify(object))
 
-JSON.parse(JSON.stringify(object)) **WILL LOST** the property which equals to a function, for example:
+JSON.parse(JSON.stringify(object)) **WILL LOSE** the property which equals to a function, for example:
 
 ```javascript
-var user = {
+let user = {
   id: 1,
   name: 'jack',
   speak: function() {
@@ -103,7 +103,7 @@ $ npm install nest-object-deep-copy
 const nestedHardCopy = require('nest-object-deep-copy');
 
 // original object
-var user = {
+let user = {
   id: 1,
   gender: 'male',
   personalInfo: {
@@ -117,13 +117,13 @@ var user = {
 //Get a hard copy
 var copiedUser = nestedHardCopy(user);
 
-//Change some values in copied object
+//Change some values in the copied object
 copiedUser.id = 2; //primitive property change
 copiedUser.personalInfo.name = 'Daniel'; //nested object value change
 
 copiedUser.speak = function() {
   console.log('I am speaking from copied object.')
-}; //Assign a new fuction
+}; //Assign a new function
 
 console.log(user.id); // 1
 console.log(user.personalInfo.name); // 'Jack'
