@@ -13,7 +13,7 @@
  */
 function setDeep(obj, path, value) {
 
-  var level = 0;
+  let level = 0;
 
   path.reduce((a, b)=>{
     level++;
@@ -46,14 +46,16 @@ function getDeep(path, obj) {
  * **************/
 function nestedHardCopy(obj) {
   
-  var copiedObj = Object.assign({});
+  let copiedObj = Object.assign({});
+  
+  copiedObj.__proto__ = Object.getPrototypeOf(obj);
 
-  var keyChain = [];
-  var subKeyChain = [];
+  let keyChain = [];
+  let subKeyChain = [];
   
   function iterateKeys(obj) {
     Object.keys(obj).forEach(key => {
-      const currentKeyChainValue = obj[key]; 
+      let currentKeyChainValue = obj[key]; 
       if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
         subKeyChain.push(key); 
         iterateKeys(obj[key]);
@@ -64,7 +66,7 @@ function nestedHardCopy(obj) {
   }
   
   Object.keys(obj).forEach(key => {
-    var currentKeyChainValue = obj[key]; 
+    let currentKeyChainValue = obj[key]; 
     if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
       subKeyChain = [...[key]];
       iterateKeys(obj[key]);

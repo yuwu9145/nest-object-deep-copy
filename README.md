@@ -87,7 +87,7 @@ let user = {
   }
 };
 
-var copiedUser = JSON.parse(JSON.stringify(user));
+let copiedUser = JSON.parse(JSON.stringify(user));
 
 user.speak(); // `I am speaking from original object.`
 copiedUser.speak(); //Uncaught TypeError: copiedUser.speak is not a function
@@ -115,7 +115,7 @@ let user = {
 };
 
 //Get a hard copy
-var copiedUser = nestedHardCopy(user);
+let copiedUser = nestedHardCopy(user);
 
 //Change some values in the copied object
 copiedUser.id = 2; //primitive property change
@@ -132,4 +132,4 @@ copiedUser.speak(); //'I am speaking from copied object.'
 ```
 ## License
 
-This project is licensed under the ISC License 
+This project is licensed under the MIT License 

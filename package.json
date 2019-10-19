@@ -1,6 +1,6 @@
 {
   "name": "nest-object-deep-copy",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "nest-object-hard-copy.js",
   "repository": {
@@ -15,10 +15,10 @@
     "copy",
     "merge",
     "object",
-    "array"
+    "array",
+    "prototype chain"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "jest": "^24.8.0"
   },
@@ -26,5 +26,5 @@
     "test": "jest"
   },
   "author": "Yuchao Wu <yuchao.sydneyuni@gmail.com>",
-  "license": "ISC"
+  "license": "MIT"
 }

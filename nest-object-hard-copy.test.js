@@ -121,6 +121,26 @@ describe('Nested Object', () => {
 		);
 		expect(user.speak()).toBe('My name is Jack.');
 	});
+	
+	it('should create a copied object which also keeps original object\'s prototype chain', () => {
+		
+		function Foo(who) {
+			this.me = who;
+		}
+
+		Foo.prototype.identify = function() {
+			return 'I am ' + this.me;
+		}
+
+		const user = new Foo('Jack');
+
+		expect(user.__proto__).toEqual(Foo.prototype);
+		
+		const copiedUser = nestedHardCopy(user);
+
+		expect(copiedUser.__proto__).toEqual(Foo.prototype);
+		expect(copiedUser.identify()).toEqual('I am Jack');
+	});
 });
 
 describe('Array', () => {
