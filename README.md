@@ -12,6 +12,12 @@ In most situations they will work as expected, but in certain circumstances they
 
 This javascript module aims to avoid problems that these methods have and always give you a real hard copy based on the original object.
 
+## Features
+
+- Copied object will keep original object's **prototype chain**
+- Will create brandnew object for each nested objects rather than just copy nested objects reference
+- Will copy over all properties which equal to function declaration
+
 ## Problem with spread operator and Object.assign()
 
 If the object is a plain object and has only primitive values:
