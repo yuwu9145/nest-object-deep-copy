@@ -18,6 +18,40 @@ This javascript module aims to avoid problems that these methods have and always
 - Will create brandnew object for each nested objects rather than just copy nested objects reference
 - Will copy over all properties which equal to function declaration
 
+## What will happen if copied object wants to delegate to original object's prototype chain that has useful methods?
+
+```javascript
+// Declare a constructor function
+function Foo(who) {
+  this.me = who;
+}
+
+// Now there is a new property called 'identify' which equals to a function in prototype chain of any object being created by calling new Foo
+Foo.prototype.identify = function() {
+  return 'I am ' + this.me;
+}
+
+// Create a user object by constructor Foo
+const user = new Foo('Jack');
+
+// Create a copy object by using spread operator
+const copiedUser1 = {...user};
+// Prototype chain is lost !!
+copiedUser1.identify(); // Uncaught TypeError: copiedUser1.identify is not a function
+
+// Create a copy object by using Object.assign()
+const copiedUser2 = Object.assign({}, user);
+// Prototype chain is lost !!
+copiedUser2.identify(); // Uncaught TypeError: copiedUser2.identify is not a function
+
+// Create a copy object by using JSON.parse(JSON.stringify(object))
+const copiedUser3 = JSON.parse(JSON.stringify(user));
+// Prototype chain is lost !!
+copiedUser3.identify(); // Uncaught TypeError: copiedUser3.identify is not a function
+
+```
+
+
 ## Problem with spread operator and Object.assign()
 
 If the object is a plain object and has only primitive values:
