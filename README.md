@@ -14,6 +14,7 @@ This javascript module aims to avoid problems that these methods have and always
 
 ## Features
 
+- Getting a snapshot at the time the object was logged (Many developers are confused that the object is expanded using the current values and not using a snapshot at the time the object was logged in Chrome developer tool). 
 - Copied object will keep original object's **prototype chain**
 - Will create brandnew object for each nested objects rather than just copy nested objects reference
 - Will copy over all properties which equal to function declaration
