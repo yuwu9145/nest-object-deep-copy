@@ -1,6 +1,6 @@
 {
   "name": "nest-object-deep-copy",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "nest-object-hard-copy.js",
   "repository": {
