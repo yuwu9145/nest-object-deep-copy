@@ -16,7 +16,7 @@ This javascript module aims to avoid problems that these methods have and always
 
 - Getting a snapshot at the time the object was logged (Many developers are confused that the object is expanded using the current values and not using a snapshot at the time the object was logged in Chrome developer tool). 
 - Copied object will keep original object's **prototype chain**
-- Will create brandnew object for each nested objects rather than just copy nested objects reference
+- Will create brand new object for each nested objects rather than just copy nested objects reference
 - Will copy over all properties which equal to function declaration
 
 ## What will happen if copied object wants to delegate to original object's prototype chain that has useful methods?
@@ -135,11 +135,11 @@ copiedUser.speak(); //Uncaught TypeError: copiedUser.speak is not a function
 ```
 
 ## Install
-```javascript
+```console
 $ npm install nest-object-deep-copy
 ```
 
-## Hot to use it
+## How to use it
 ```javascript
 const nestedHardCopy = require('nest-object-deep-copy');
 
