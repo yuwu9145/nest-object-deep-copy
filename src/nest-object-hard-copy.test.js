@@ -1,4 +1,4 @@
-const nestedHardCopy = require('./nest-object-hard-copy');
+const nestedHardCopy = require('./index');
 
 describe('Plain Object', () => {
 	it('should create a copied object which is a hard copied version', () => {
