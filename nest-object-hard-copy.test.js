@@ -198,3 +198,66 @@ describe('Array', () => {
 		expect(originalArray[0].speak()).toBe('My name is Jack.');
   });
 });
+
+describe('Array & Object Mix', () => {
+	it('should create a copied object from an object contains both array and object', () => {
+		const originalObject = [
+			{
+				"controlType": 1,
+				"customFieldId": "01d734b4-41dc-4f3c-6617-ecb4a03d28b8",
+				"instructions": null,
+				"isActive": true,
+				"label": [
+					{
+						"supportedLanguageCode": "en-US",
+						"value": "new label"
+					},
+					{
+						"supportedLanguageCode": "es-MX",
+						"value": "new labelaz"
+					},
+					{
+						"supportedLanguageCode": "ja-JP",
+						"value": "new labeljp"
+					}
+				],
+				"mandatory": true,
+				"selections": {
+				},
+				"sortOrder": 0,
+				"customText": null
+			},
+			{
+				"controlType": 0,
+				"customFieldId": "648f6668-f316-5d4f-005f-60666087299c",
+				"instructions": null,
+				"isActive": true,
+				"label": [
+					{
+						"supportedLanguageCode": "en-US",
+						"value": "aa"
+					},
+					{
+						"supportedLanguageCode": "es-MX",
+						"value": "bbbb"
+					},
+					{
+						"supportedLanguageCode": "ja-JP",
+						"value": "cc"
+					}
+				],
+				"mandatory": true,
+				"selections": {
+				},
+				"sortOrder": 0,
+				"customText": null
+			}
+		];
+    
+    const copiedObj = nestedHardCopy(originalObject);
+
+    copiedObj[0].customText = 'Changed value';
+    
+    expect(originalObject[0].customText).toBe(null);
+  });
+});

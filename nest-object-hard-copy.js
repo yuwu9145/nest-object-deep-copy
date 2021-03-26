@@ -34,7 +34,9 @@ function setDeep(obj, path, value) {
  * @param {!object} obj  - The object which contains the value you want to get.
  */
 function getDeep(path, obj) {
-  return path.reduce(function(prev, curr) { return prev[curr] }, obj);
+  return path.reduce(function(prev, curr) { 
+    return prev[curr] 
+  }, obj);
 }
 /*****************
  * END OF HELPERS *
@@ -56,7 +58,7 @@ function nestedHardCopy(obj) {
   function iterateKeys(obj) {
     Object.keys(obj).forEach(key => {
       let currentKeyChainValue = obj[key]; 
-      if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
+      if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null && !Array.isArray(currentKeyChainValue)) {
         subKeyChain.push(key); 
         iterateKeys(obj[key]);
         return;
