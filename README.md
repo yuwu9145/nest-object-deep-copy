@@ -10,8 +10,9 @@ This javascript module aims to create a real hard copy from original javascript 
 
 | Feature  | JSON.parse(JSON.stringify(object)) | spread operator | Object.assign | nest-object-deep-copy |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Hard Copy nested object](#limitions-of-common-ways) | Content Cell  |
-| Copy functions  | Content Cell  |
+| [Hard Copy nested object](#limitions-of-common-ways) | :heavy_check_mark:  | :x:  | :x:  | :heavy_check_mark:  |
+| Copy functions  | :x:  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark:  |
+| Keep prototype chain  | :x:  | :x:  | :x:  |  :heavy_check_mark:  |
 
 ## Features
 
