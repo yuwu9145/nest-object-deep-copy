@@ -6,11 +6,7 @@
 [coverage-badge-yellow]: https://img.shields.io/badge/Coverage-100%25-yellow.svg
 [coverage-badge-red]: https://img.shields.io/badge/Coverage-100%25-red.svg
 
-One confusion in javascript is **hard copy / shallow copy** objects. Usually developers are being told to use the **spread operator**, **Object.assign** or **JSON.parse(JSON.stringify(object))** to get a real copy from the original object.
-
-In most situations they will work as expected, but in certain circumstances they will not work as might you expect.
-
-This javascript module aims to avoid problems that these methods have and always give you a real hard copy based on the original object.
+This javascript module aims to create a real hard copy from original javascript object. It avoids all [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
 
 ## Features
 
@@ -19,7 +15,8 @@ This javascript module aims to avoid problems that these methods have and always
 - Will create brand new object for each nested objects rather than just copy nested objects reference
 - Will copy over all properties which equal to function declaration
 
-## Problem with spread operator and Object.assign()
+## Limitions of common ways
+### Problem with spread operator and Object.assign()
 
 If the object is a plain object and has only primitive values:
 
@@ -81,7 +78,7 @@ console.log(copiedUser.id); // 2
 ```
 
 
-## Problem with JSON.parse(JSON.stringify(object))
+### Problem with JSON.parse(JSON.stringify(object))
 
 JSON.parse(JSON.stringify(object)) **WILL LOSE** the property which equals to a function, for example:
 
@@ -100,7 +97,7 @@ user.speak(); // `I am speaking from original object.`
 copiedUser.speak(); //Uncaught TypeError: copiedUser.speak is not a function
 ```
 
-## What will happen if copied object wants to delegate to original object's prototype chain that has useful methods?
+### What will happen if copied object wants to delegate to original object's prototype chain that has useful methods?
 
 ```javascript
 // Declare a constructor function
