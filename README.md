@@ -109,33 +109,9 @@ $ npm install nest-object-deep-copy
 ```javascript
 const nestedHardCopy = require('nest-object-deep-copy');
 
-// original object
-let user = {
-  id: 1,
-  gender: 'male',
-  personalInfo: {
-    name: 'Jack',
-  },
-  speak: function() {
-    console.log('I am speaking from original object.');
-  }
-};
-
 //Get a hard copy
-let copiedUser = nestedHardCopy(user);
+let copiedUser = nestedHardCopy(object);
 
-//Change some values in the copied object
-copiedUser.id = 2; //primitive property change
-copiedUser.personalInfo.name = 'Daniel'; //nested object value change
-
-copiedUser.speak = function() {
-  console.log('I am speaking from copied object.')
-}; //Assign a new function
-
-console.log(user.id); // 1
-console.log(user.personalInfo.name); // 'Jack'
-user.speak(); // 'I am speaking from original object.'
-copiedUser.speak(); //'I am speaking from copied object.'
 ```
 ## License
 
