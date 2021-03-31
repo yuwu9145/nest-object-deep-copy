@@ -8,6 +8,11 @@
 
 This javascript module aims to create a real hard copy from original javascript object. It avoids all [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
 
+| Feature  | JSON.parse(JSON.stringify(object)) | spread operator | Object.assign | nest-object-deep-copy |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| [Hard Copy nested object](#limitions-of-common-ways) | Content Cell  |
+| Copy functions  | Content Cell  |
+
 ## Features
 
 - Getting a snapshot at the time the object was logged (Many developers are confused that the object is expanded using the current values and not using a snapshot at the time the object was logged in Chrome developer tool). 
