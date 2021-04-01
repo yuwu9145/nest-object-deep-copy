@@ -22,7 +22,7 @@ This is pure javascript function that aims to create a real hard copy from origi
 | [Keep prototype chain](#loosing-prototype-chain)  | :x:  | :x:  | :x:  |  :heavy_check_mark:  |
 
 ## Limitions of common ways
-### Cannot make hard copy on nested objects (pread operator or Object.assign())
+### Cannot make hard copy on nested objects (spread operator or Object.assign())
 
 ```javascript
 let user = {
