@@ -6,7 +6,14 @@
 [coverage-badge-yellow]: https://img.shields.io/badge/Coverage-100%25-yellow.svg
 [coverage-badge-red]: https://img.shields.io/badge/Coverage-100%25-red.svg
 
-This javascript module aims to create a real hard copy from original javascript object. It avoids all [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
+## What
+This is pure javascript function that aims to create a real hard copy from original javascript object. It avoids all [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
+
+
+
+## Why
+* It is just a pure function and final import size is only **662 bytes**.
+* It gives you the **real hard copy**, avoids [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
 
 | Feature  | JSON.parse(JSON.stringify(object)) | spread operator | Object.assign | nest-object-deep-copy |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
