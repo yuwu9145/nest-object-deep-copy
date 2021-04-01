@@ -107,10 +107,10 @@ $ npm install nest-object-deep-copy
 
 ## How to use it
 ```javascript
-const nestedHardCopy = require('nest-object-deep-copy');
+const deepCopy = require('./nest-object-hard-copy');
 
 //Get a hard copy
-let copiedUser = nestedHardCopy(object);
+let copiedUser = deepCopy(object);
 
 ```
 ## License
