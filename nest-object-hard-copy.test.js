@@ -1,4 +1,7 @@
-const nestedHardCopy = require('./index');
+const deepCopy = require('./nest-object-hard-copy.min');
+// const deepCopy = require('./nest-object-hard-copy');
+// const nestedHardCopy = require('./nest-object-hard-copy');
+// const deepCopy = nestedHardCopy;
 
 describe('Plain Object', () => {
 	it('should create a copied object which is a hard copied version', () => {
@@ -15,7 +18,7 @@ describe('Plain Object', () => {
 			h: [1, 2, 3]
 		};
 
-		const copiedObj = nestedHardCopy(originalObj);
+		const copiedObj = deepCopy(originalObj);
 
 		copiedObj.a = 1;
 		copiedObj.b = false;
@@ -95,7 +98,7 @@ describe('Nested Object', () => {
 			}
 		};
 
-		const copiedUser = nestedHardCopy(user);
+		const copiedUser = deepCopy(user);
 
 		copiedUser.personalInfo.name = 'Trump';
 		copiedUser.personalInfo.address.line1 = 'White House';
@@ -136,7 +139,7 @@ describe('Nested Object', () => {
 
 		expect(user.__proto__).toEqual(Foo.prototype);
 		
-		const copiedUser = nestedHardCopy(user);
+		const copiedUser = deepCopy(user);
 
 		expect(copiedUser.__proto__).toEqual(Foo.prototype);
 		expect(copiedUser.identify()).toEqual('I am Jack');
@@ -184,7 +187,7 @@ describe('Array', () => {
       }
     ];
     
-    const copiedArray = nestedHardCopy(originalArray);
+    const copiedArray = deepCopy(originalArray);
 
     // Change first element values in copied Array
     copiedArray[0].personalInfo.name = 'Trump';
@@ -254,7 +257,7 @@ describe('Array & Object Mix', () => {
 			}
 		];
     
-    const copiedObj = nestedHardCopy(originalObject);
+    const copiedObj = deepCopy(originalObject);
 
     copiedObj[0].customText = 'Changed value';
     

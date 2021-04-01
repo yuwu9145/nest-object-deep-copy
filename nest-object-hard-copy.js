@@ -46,7 +46,7 @@ function getDeep(path, obj) {
  /*****************
  * MAIN CLOSURE *
  * **************/
-function nestedHardCopy(obj) {
+function deepCopy(obj) {
   
   let copiedObj = Object.assign({});
   
@@ -92,4 +92,4 @@ function nestedHardCopy(obj) {
  * END OF MAIN CLOSURE *
  * **************/
 
- module.exports = nestedHardCopy;
+module.exports = deepCopy;
