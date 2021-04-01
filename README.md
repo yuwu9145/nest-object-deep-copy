@@ -7,7 +7,7 @@
 [coverage-badge-red]: https://img.shields.io/badge/Coverage-100%25-red.svg
 
 ## What
-This is pure javascript function that aims to create a real hard copy from original javascript object. It avoids all [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
+This is pure javascript function that aims to create a real hard copy from original javascript object.
 
 
 
@@ -34,7 +34,7 @@ let user = {
 };
 ```
 
-Then the spread operator or Object.assign() **WILL NOT** give you a hard copied object, let us continue with another example:
+Then the spread operator or Object.assign() **WILL NOT** give you a hard copied object:
 
 ```javascript
 let copiedUser = {
