@@ -15,11 +15,11 @@ This is pure javascript function that aims to create a real hard copy from origi
 * It is just a pure function and final import size is only **662 bytes**.
 * It gives you the **real hard copy**, avoids [limitations](#limitions-of-common-ways) of using **spread operator**, **Object.assign** and **JSON.parse(JSON.stringify(object))**. 
 
-| Feature  | JSON.parse(JSON.stringify(object)) | spread operator | Object.assign | nest-object-deep-copy |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Hard Copy nested object](#cannot-make-hard-copy-on-nested-objects) | :heavy_check_mark:  | :x:  | :x:  | :heavy_check_mark:  |
-| [Copy functions](#loosing-functions) | :x:  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark:  |
-| [Keep prototype chain](#loosing-prototype-chain)  | :x:  | :x:  | :x:  |  :heavy_check_mark:  |
+| Feature  | JSON.parse(JSON.stringify(object)) | spread operator / Object.assign | nest-object-deep-copy |
+| ------------- | ------------- | ------------- | ------------- |
+| [Hard Copy nested object](#cannot-make-hard-copy-on-nested-objects) | :heavy_check_mark:  | :x:  | :heavy_check_mark:  |
+| [Copy functions](#loosing-functions) | :x:  | :heavy_check_mark:  |  :heavy_check_mark:  |
+| [Keep prototype chain](#loosing-prototype-chain)  | :x:  | :x:  |  :heavy_check_mark:  |
 
 ## Limitions of common ways
 ### Cannot make hard copy on nested objects
