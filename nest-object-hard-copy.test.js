@@ -262,5 +262,26 @@ describe('Array & Object Mix', () => {
     copiedObj[0].customText = 'Changed value';
     
     expect(originalObject[0].customText).toBe(null);
-  });
+	});
+});
+
+describe('Circular References', () => {
+	it('should create a copied object containing circular references as [Circular]', () => {
+		
+		const originalObject = { 
+			a: 'test',
+			f: 1
+		};
+		originalObject.a = originalObject;
+		originalObject.b = {};
+		originalObject.b.c = originalObject;
+		originalObject.g = originalObject.b;
+    const copiedObj = deepCopy(originalObject);
+    // const copiedObj = {...originalObject};
+    // const copiedObj = JSON.parse(JSON.stringify(originalObject));
+
+    expect(copiedObj.a).toBe('[Circular]');
+    expect(copiedObj.b.c).toBe('[Circular]');
+    expect(copiedObj.g).toBe('[Circular]');
+	});
 });

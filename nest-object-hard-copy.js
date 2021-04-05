@@ -1,5 +1,7 @@
 'use strict';
 
+var DEFAULT_CIRCULAR_VALUE = '[Circular]';
+
 /*****************
  * HELPERS *
  * **************/
@@ -13,7 +15,7 @@
  */
 function setDeep(obj, path, value) {
 
-  let level = 0;
+  var level = 0;
 
   path.reduce((a, b)=>{
     level++;
@@ -38,6 +40,86 @@ function getDeep(path, obj) {
     return prev[curr] 
   }, obj);
 }
+
+function checkCircular(obj){
+  var containCircular = false; 
+  try {
+    JSON.parse(JSON.stringify(obj));
+  } catch (e) {
+    if (e instanceof TypeError && e.message.indexOf('Converting circular structure to JSON') !== -1) {
+      containCircular = true;
+    }
+  }
+  return containCircular;
+}
+
+// Not boolean, number, string, undefined, null, bigint, symbol
+function isNonePrimitive(value) {
+  return typeof value === 'object' && value && value !== null && !Array.isArray(value);
+}
+
+function getKeyChains(obj) {
+  var keyChain = [];
+  var subKeyChain = [];
+  var circularKeyChain = [];
+  
+  var containCircularRefs = checkCircular(obj); 
+  var referenceObjs = [obj];
+  
+  function iterateKeys(obj) {
+
+    Object.keys(obj).forEach(key => {
+      
+      var currentKeyChainValue = obj[key]; 
+      
+      if (isNonePrimitive(currentKeyChainValue)) {
+        if (containCircularRefs) {
+          if (referenceObjs.indexOf(currentKeyChainValue) > -1) {
+            circularKeyChain.push([...subKeyChain, key]);
+            return; 
+          } else {
+            subKeyChain.push(key); 
+            referenceObjs.push(currentKeyChainValue);
+          }
+        }
+        
+        subKeyChain.push(key); 
+        iterateKeys(obj[key]);
+        return;
+      }
+      return;
+    });
+  }
+  
+  Object.keys(obj).forEach(key => {
+    
+    var currentKeyChainValue = obj[key]; 
+
+    if ( isNonePrimitive(currentKeyChainValue)) {
+      
+      if (containCircularRefs) {
+        if (referenceObjs.indexOf(currentKeyChainValue) > -1) {
+          circularKeyChain.push([key]);
+          return; 
+        } else {
+          referenceObjs.push(currentKeyChainValue);
+        }
+      }
+      
+      subKeyChain = [...[key]];
+      iterateKeys(obj[key]);
+      keyChain.push([...subKeyChain]);
+    } else {
+      keyChain.push([key]);
+    }
+  });
+
+  return {
+    keyChain,
+    circularKeyChain
+  };
+}
+
 /*****************
  * END OF HELPERS *
  * **************/
@@ -48,44 +130,29 @@ function getDeep(path, obj) {
  * **************/
 function deepCopy(obj) {
   
-  let copiedObj = Object.assign({});
+  var copiedObj = Object.assign({});
   
   copiedObj.__proto__ = Object.getPrototypeOf(obj);
 
-  let keyChain = [];
-  let subKeyChain = [];
-  
-  function iterateKeys(obj) {
-    Object.keys(obj).forEach(key => {
-      let currentKeyChainValue = obj[key]; 
-      if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null && !Array.isArray(currentKeyChainValue)) {
-        subKeyChain.push(key); 
-        iterateKeys(obj[key]);
-        return;
-      }
-      return;
-    });
-  }
-  
-  Object.keys(obj).forEach(key => {
-    let currentKeyChainValue = obj[key]; 
-    if (typeof currentKeyChainValue === 'object' && obj[key] && obj[key] !== null) {
-      subKeyChain = [...[key]];
-      iterateKeys(obj[key]);
-      keyChain.push([...subKeyChain]);
-    } else {
-      copiedObj[key] = obj[key]; 
-    }
-  });
+  var keyChainAndCircularChain = getKeyChains(obj);
+  var keyChain = keyChainAndCircularChain.keyChain;
+  var circularKeyChain = keyChainAndCircularChain.circularKeyChain;
 
   keyChain.forEach(keyLevelArray => {
     copiedObj[keyLevelArray[0]] = {...obj[keyLevelArray[0]]}; 
     keyLevelArray.forEach((currentKey, index) => {
-      const currentCutDownSubKeyChain = [...keyLevelArray].slice(0, index + 1);
-      setDeep(copiedObj, currentCutDownSubKeyChain, {...getDeep(currentCutDownSubKeyChain, obj)}); 
+      var currentCutDownSubKeyChain = [...keyLevelArray].slice(0, index + 1);
+      var valueToAssign = getDeep(currentCutDownSubKeyChain, obj);
+      setDeep(copiedObj, currentCutDownSubKeyChain, isNonePrimitive(valueToAssign) ? {...valueToAssign} : valueToAssign); 
     });
   });
 
+  if (circularKeyChain.length) {
+    circularKeyChain.forEach(keyLevelArray => {
+      setDeep(copiedObj, keyLevelArray, DEFAULT_CIRCULAR_VALUE); 
+    });
+  }
+  
   return copiedObj;
 }
  /*****************
