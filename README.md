@@ -2,6 +2,8 @@
 
 ![Coverage badge gree][coverage-badge-green]
 
+If this project helps you, please support it with a star :heart: (Thank you!).
+
 [coverage-badge-green]: https://img.shields.io/badge/Coverage-100%25-brightgreen.svg
 [coverage-badge-yellow]: https://img.shields.io/badge/Coverage-100%25-yellow.svg
 [coverage-badge-red]: https://img.shields.io/badge/Coverage-100%25-red.svg
@@ -20,7 +22,29 @@ This is pure javascript function that aims to create a real hard copy from origi
 | [Hard Copy nested object](#cannot-make-hard-copy-on-nested-objects) | :heavy_check_mark:  | :x:  | :heavy_check_mark:  |
 | [Copy functions](#loosing-functions) | :x:  | :heavy_check_mark:  |  :heavy_check_mark:  |
 | [Keep prototype chain](#loosing-prototype-chain)  | :x:  | :x:  |  :heavy_check_mark:  |
+| Circular Reference  | Throw Error  | Keep Circular Ref  |  [Graceful Handle](#gracefully-handle-circular-reference)  |
 
+### Gracefully handle Circular Reference
+```javascript
+const originalObject = { 
+  a: 'test',
+  f: 1
+};
+originalObject.a = originalObject;
+originalObject.b = {};
+originalObject.b.c = originalObject;
+```
+`deepCopy(originalObject)` will result in:
+
+```javascript
+{ 
+  a: '[Circular]',
+  f: 1,
+  b: {
+    c: '[Circular]',
+  },
+};
+```
 ## Limitions of common ways
 ### Cannot make hard copy on nested objects
 
